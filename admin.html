@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - BioPharma</title>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Top Sticky Header & Navigation Bar -->
+    <header>
+        <div class="navbar">
+            <div class="nav-brand" onclick="window.location.href='index.html'">
+                <i class="fa-solid fa-file-waveform"></i> BioPharma
+            </div>
+            
+            <ul class="nav-links" id="nav-links" style="display: none;">
+                
+               
+                <li id="admin-nav-item" style="display: none;"><a class="nav-item" id="nav-admin" href="admin.html">Admin Panel</a></li>
+            </ul>
+
+            <div class="nav-actions" id="nav-actions" style="display: none;">
+                <div class="cart-badge-container" onclick="window.location.href='cart.html'">
+                    <button class="cart-icon-btn">
+                        <i class="fa-solid fa-shopping-cart"></i>
+                    </button>
+                    <span class="cart-count" id="cart-count">0</span>
+                </div>
+                
+                <div class="user-profile-badge">
+                    <i class="fa-solid fa-user-circle"></i>
+                    <span id="user-display-name">User</span>
+                    <span class="user-role-tag role-user" id="user-display-role">USER</span>
+                </div>
+
+                <button class="btn btn-danger" onclick="handleLogout()">
+                    <i class="fa-solid fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Views Container -->
+    <main>
+        <!-- Admin Panel View -->
+        <section id="admin-view" class="view-section active" style="max-width: 1200px; margin: 0 auto; padding: 2rem;">
+            
+            <div style="margin-bottom: 2rem;">
+                <h2>Admin Dashboard</h2>
+                <p style="color: var(--text-secondary); font-size: 0.9rem;">Manage pharmacy inventory and review customer documents</p>
+            </div>
+
+            <!-- Admin Dashboard Tabs -->
+            <div class="admin-tabs" style="display: flex; gap: 1rem; margin-bottom: 2.5rem; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem;">
+                <button class="btn btn-primary" id="admin-tab-inventory" onclick="switchAdminTab('inventory')">
+                    <i class="fa-solid fa-boxes-stacked"></i> Inventory Manager
+                </button>
+                <button class="btn" id="admin-tab-prescriptions" onclick="switchAdminTab('prescriptions')" style="background: rgba(255,255,255,0.05); color: var(--text-primary); border: 1px solid var(--border-color);">
+                    <i class="fa-solid fa-file-prescription"></i> Customer Prescriptions
+                </button>
+            </div>
+
+            <!-- TAB 1: Inventory Management -->
+            <div class="admin-section" id="admin-inventory-section">
+                <!-- Restock/Add stock card -->
+                <div class="glass-card">
+                    <h3 class="form-title" id="admin-form-title">Add New Medicine</h3>
+                    <form id="admin-medicine-form">
+                        <input type="hidden" id="med-id">
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="med-name">Medicine Name</label>
+                            <input type="text" id="med-name" class="form-control" placeholder="e.g. Amoxicillin 500mg" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="med-brand">Brand</label>
+                            <input type="text" id="med-brand" class="form-control" placeholder="e.g. Sandoz" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="med-price">Price ($)</label>
+                            <input type="number" id="med-price" class="form-control" step="0.01" min="0.01" placeholder="e.g. 14.50" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="med-stock">Initial Stock Quantity</label>
+                            <input type="number" id="med-stock" class="form-control" min="0" placeholder="e.g. 100" required>
+                        </div>
+
+                        <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+                            <button type="submit" class="btn btn-primary" style="flex: 1;">
+                                <i class="fa-solid fa-save"></i> Save Product
+                            </button>
+                            <button type="button" class="btn" style="flex: 1;" onclick="resetAdminForm()">
+                                Cancel
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Admin Stock table overview -->
+                <div class="glass-card">
+                    <h3 style="margin-bottom: 1.2rem;">Inventory Overview</h3>
+                    <div class="admin-table-container">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Price</th>
+                                    <th>Stock</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-inventory-table">
+                                <!-- Dynamically loaded -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: Customer Prescriptions -->
+            <div id="admin-prescriptions-section" style="display: none;">
+                <div class="glass-card" style="padding: 2rem;">
+                    <h3 style="margin-bottom: 1.5rem;"><i class="fa-solid fa-file-prescription"></i> Customer Uploaded Prescriptions</h3>
+                    <div class="admin-table-container">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Customer Username</th>
+                                    <th>Prescription File</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-prescriptions-table">
+                                <!-- Loaded dynamically by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <div class="toast-container" id="toast-container"></div>
+
+    <footer>
+        <p>&copy; 2026 BioPharma. Built with pure Java & Web standards.</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
