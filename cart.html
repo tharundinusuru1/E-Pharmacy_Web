@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - BioPharma</title>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Top Sticky Header & Navigation Bar -->
+    <header>
+        <div class="navbar">
+            <div class="nav-brand" onclick="window.location.href='index.html'">
+                <i class="fa-solid fa-file-waveform"></i> BioPharma
+            </div>
+            
+            <ul class="nav-links" id="nav-links" style="display: none;">
+                <li><a class="nav-item" id="nav-catalog" href="index.html">Catalog</a></li>
+                <li><a class="nav-item" id="nav-prescription" href="prescription.html">Upload Prescription</a></li>
+                <li id="admin-nav-item" style="display: none;"><a class="nav-item" id="nav-admin" href="admin.html">Admin Panel</a></li>
+            </ul>
+
+            <div class="nav-actions" id="nav-actions" style="display: none;">
+                <div class="cart-badge-container" onclick="window.location.href='cart.html'">
+                    <button class="cart-icon-btn">
+                        <i class="fa-solid fa-shopping-cart"></i>
+                    </button>
+                    <span class="cart-count" id="cart-count">0</span>
+                </div>
+                
+                <div class="user-profile-badge">
+                    <i class="fa-solid fa-user-circle"></i>
+                    <span id="user-display-name">User</span>
+                    <span class="user-role-tag role-user" id="user-display-role">USER</span>
+                </div>
+
+                <button class="btn btn-danger" onclick="handleLogout()">
+                    <i class="fa-solid fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Views Container -->
+    <main>
+        <!-- Shopping Cart View -->
+        <section id="cart-view" class="view-section active">
+            <h2 style="margin-bottom: 1.5rem;"><i class="fa-solid fa-shopping-basket"></i> Your Shopping Cart</h2>
+            
+            <div class="cart-layout">
+                <!-- Cart Items List -->
+                <div class="cart-items-container" id="cart-items-list">
+                    <!-- Loaded dynamically by JS -->
+                </div>
+
+                <!-- Checkout Summary Form -->
+                <div class="glass-card" id="checkout-summary-card" style="display: none; padding: 1.5rem;">
+                    <h3 style="margin-bottom: 1.2rem; font-weight: 600; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;">Order Summary</h3>
+                    
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 1.5rem; font-size: 1.1rem; font-weight: 700;">
+                        <span>Total Price:</span>
+                        <span id="cart-total-price">$0.00</span>
+                    </div>
+
+                    <form id="checkout-form">
+                        <div class="form-group">
+                            <label class="form-label" for="shipping-address">Shipping Address</label>
+                            <textarea id="shipping-address" class="form-control" rows="3" placeholder="Enter full delivery address" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="payment-method">Payment Method</label>
+                            <select id="payment-method" class="form-control" required>
+                                <option value="CASH_ON_DELIVERY">Cash on Delivery</option>
+                                <option value="CREDIT_CARD">Credit / Debit Card</option>
+                                <option value="BANK_TRANSFER">Bank Wire Transfer</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">
+                            <i class="fa-solid fa-credit-card"></i> Place Order
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="toast-container" id="toast-container"></div>
+
+    <footer>
+        <p>&copy; 2026 BioPharma. Built with pure Java & Web standards.</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
