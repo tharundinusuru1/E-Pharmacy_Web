@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - BioPharma</title>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Top Sticky Header & Navigation Bar -->
+    <header>
+        <div class="navbar">
+            <div class="nav-brand" onclick="window.location.href='index.html'">
+                <i class="fa-solid fa-file-waveform"></i> BioPharma
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Views Container -->
+    <main>
+        <!-- Authentication View (Login) -->
+        <section id="auth-view" class="view-section active">
+            <div class="glass-card">
+                <div class="auth-tabs">
+                    <div class="auth-tab active" id="tab-login" onclick="window.location.href='login.html'">Login</div>
+                    <div class="auth-tab" id="tab-register" onclick="window.location.href='register.html'">Register</div>
+                </div>
+
+                <!-- Login Form -->
+                <form id="login-form" class="auth-form active">
+                    <div class="form-group">
+                        <label class="form-label" for="login-username">Username</label>
+                        <input type="text" id="login-username" class="form-control" placeholder="Enter username" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="login-password">Password</label>
+                        <input type="password" id="login-password" class="form-control" placeholder="Enter password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">
+                        <i class="fa-solid fa-sign-in-alt"></i> Sign In
+                    </button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <div class="toast-container" id="toast-container"></div>
+
+    <footer>
+        <p>&copy; 2026 BioPharma. Built with pure Java & Web standards.</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
